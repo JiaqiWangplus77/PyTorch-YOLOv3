@@ -13,6 +13,6 @@ checkpoints/**
 output/**
 data/**
 config/**
-
+logs/**
 
 
