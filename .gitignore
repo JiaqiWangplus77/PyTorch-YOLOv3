@@ -2,6 +2,8 @@
 build
 .git
 *.egg-info
+*.jpg
+*.png
 dist
 output
 data/coco
@@ -10,7 +12,13 @@ weights/*.weights
 __pycache__
 checkpoints/**
 output/**
-data/**
+data/samples/**
+data/CFD/images/*.jpg
+data/GAPs384/images/*.jpg
+data/MDT/**
 logs/**
+
+
+
 
 

@@ -41,11 +41,11 @@ def __getitem__(self, index): img = transforms.ToTensor()(Image.open(img_path).c
 
 an example at the terminal
 python3 evaluation_dataset.py \
---model_def config/yolov3_gaps_1class.cfg \
+--model_def config/GAPs384/yolov3_gaps_1class.cfg \
 --weights_path checkpoints/aug23_img576_test1/weights_173.pth \
 --nms_thres 0.05 --conf_thres 0.5 \
 --img_size 640 --batch_size 2 \
---valid_path data/custom/GAPs384/list_for_shuffle/predict_new.txt
+--valid_path data/custom/GAPs384/file_list/predict_new.txt
 
 '''
 
@@ -53,14 +53,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()  
     parser.add_argument("--batch_size", type=int, default=8, help="size of each image batch")
     parser.add_argument("--model_def", type=str, default="config/yolov3_gaps_1class.cfg", help="path to model definition file")
-    parser.add_argument("--data_config", type=str, default="config/custom.data", help="path to data config file")
     parser.add_argument("--weights_path", type=str, 
                         default="checkpoints/crop_Gaps/current/valid_img_size640/image640/aug23/CFD_cross/test3_save_weights/weights_233.pth", 
                         help="path to weights file")
-#    parser.add_argument("--output_image_folder", type=str, default="output/delete_later", help="path to dataset")
     parser.add_argument("--n_cpu", type=int, default=16, help="number of cpu threads to use during batch generation")
     parser.add_argument("--img_size", type=int, default=640, help="size of each image dimension")
-    parser.add_argument("--valid_path", type=str, default='data/custom/filtered_crop_dataset_one_class/file_list/list_for_shuffle/predict_new.txt', help="if True computes mAP every tenth batch")
+    parser.add_argument("--valid_path", type=str, default='data/custom/GAPs384/file_list/predict_new.txt', help="path to the list of the validation set")
     parser.add_argument("--iou_thres", type=float, default=0.5, help="")
     parser.add_argument("--conf_thres", type=float, default=0.5, help="")
     parser.add_argument("--nms_thres", type=float, default=0.05, help="")

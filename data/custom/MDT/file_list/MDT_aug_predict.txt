@@ -1,0 +1,16 @@
+data/custom/MDT/aug/images/0010_combined_vid1.png
+data/custom/MDT/aug/images/0010_combined_vid3.png
+data/custom/MDT/aug/images/0060_combined_vid1.png
+data/custom/MDT/aug/images/0100_combined_vid4.png
+data/custom/MDT/aug/images/0290_combined_vid3.png
+data/custom/MDT/aug/images/0350_combined_vid1.png
+data/custom/MDT/aug/images/0400_combined_vid4.png
+data/custom/MDT/aug/images/0440_combined_vid3.png
+data/custom/MDT/aug/images/0700_combined_vid4.png
+data/custom/MDT/aug/images/0790_combined_vid4.png
+data/custom/MDT/aug/images/0800_combined_vid4.png
+data/custom/MDT/aug/images/0970_combined_vid4.png
+data/custom/MDT/aug/images/1000_combined_vid4.png
+data/custom/MDT/aug/images/1360_combined_vid1.png
+data/custom/MDT/aug/images/1390_combined_vid1.png
+data/custom/MDT/aug/images/1520_combined_vid1.png
