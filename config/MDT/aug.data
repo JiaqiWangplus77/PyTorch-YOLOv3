@@ -1,0 +1,5 @@
+classes= 2
+train=data/custom/MDT/file_list/MDT_aug_train.txt
+valid=data/custom/MDT/file_list/MDT_no_aug_valid.txt
+valid_cross=data/custom/MDT/file_list/MDT_aug_predict.txt
+names=data/custom/MDT/classes.names

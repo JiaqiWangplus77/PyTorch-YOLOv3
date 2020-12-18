@@ -26,22 +26,36 @@ import torch.optim as optim
 import logging
 import pandas as pd
 
-
-
 """
-an example for command in the terminal:
-python3 train.py --epochs 300 --data_config config/custom.data --img_size 416 \
---batch_size 8 \
---model_def config/yolov3_gaps_1class.cfg
---data_config
---pretrained_weights checkpoints/train_with_crop1/yolov3_one_channel_416_99.pth --starts_epochs 0
-  
+an example at the terminal:
+python3 train.py --epochs 500 \
+--data_config config/GAPs384/with_aug123.data \
+--multiscale_training 0 \
+--img_size 640 \
+--batch_size 2 \
+--evaluation_interval 2 \
+--checkpoint_interval 2 \
+--model_def config/GAPs384/yolov3_gaps_1class.cfg \
+--weights_folder checkpoints/GAPs384/test_delete/ 
+
+or
+
+python3 train.py --epochs 500 \
+--data_config config/MDT/aug.data \
+--multiscale_training 0 \
+--img_size 864 \
+--batch_size 2 \
+--evaluation_interval 2 \
+--checkpoint_interval 2 \
+--model_def config/MDT/yolov3_MDT.cfg \
+--weights_folder checkpoints/MDT_delete_later/
+
     
 """
 pid = os.getpid()
 import subprocess
 subprocess.Popen("renice -n 10 -p {}".format(pid),shell=True)
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '2'
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

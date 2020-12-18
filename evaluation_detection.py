@@ -44,8 +44,8 @@ python3 evaluation_detection.py \
 """
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--image_folder", type=str, default="data/samples", help="path to dataset")
-    parser.add_argument("--output_image_folder", type=str, default="output/", help="path to dataset")
+    parser.add_argument("--image_folder", type=str, default="data/samples", help="path to image folder")
+    parser.add_argument("--output_image_folder", type=str, default="output/", help="path to the detection results")
     parser.add_argument("--model_def", type=str, default="config/yolov3_1.cfg", help="path to model definition file")
     parser.add_argument("--weights_path", type=str, default="weights/yolov3.weights", help="path to weights file")
     parser.add_argument("--class_path", type=str, default="data/coco.names", help="path to class label file")
@@ -54,7 +54,6 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", type=int, default=8, help="size of the batches")
     parser.add_argument("--n_cpu", type=int, default=0, help="number of cpu threads to use during batch generation")
     parser.add_argument("--img_size", type=int, default=864, help="size of each image dimension")
-    parser.add_argument("--checkpoint_model", type=str, help="path to checkpoint model")
     opt = parser.parse_args()
     print(opt)
 

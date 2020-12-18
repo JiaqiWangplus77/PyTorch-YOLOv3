@@ -13,10 +13,10 @@ import argparse
 """
 add groud truth on the images
 
+An example at the terminal: 
 python3 evaluation_add_groud_truth.py \
---image_folder output/aug23_img576_test1_weights_173 \
+--image_folder output/delete_later \
 --label_folder data/custom/GAPs384/labels
-
 """
 
 if __name__ == "__main__":

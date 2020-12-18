@@ -41,7 +41,7 @@ $ train.py [-h] [--epochs EPOCHS] [--batch_size BATCH_SIZE]
 ```
 
 ```
-an example at the terminal:
+An example at the terminal:
 python3 train.py --epochs 500 \
 --data_config config/GAPs384/with_aug123.data \
 --multiscale_training 0 \
@@ -53,18 +53,34 @@ python3 train.py --epochs 500 \
 --weights_folder checkpoints/GAPs384/test_delete/ 
 ```
 
+We provide another python file (train_cross_valid.py) which allows to valid with two dataset at the same time while training. In this way, the generalization ability of the YOLOv3 across datasets could be checked.
+
+```
+An example at the terminal:
+python3 train_cross_valid.py --epochs 500 \
+--data_config config/GAPs384/valid_CFD2.data \
+--multiscale_training 0 \
+--img_size 576 \
+--batch_size 4 \
+--evaluation_interval 2 \
+--checkpoint_interval 2 \
+--model_def config/GAPs384/yolov3_gaps_1class.cfg \
+--weights_folder checkpoints/test_cross_delete/
+```
+
 #### Detect
 ##### evaluation_detection.py. 
-Ddetect the results with the weights file. 
+Generate the prediction results on the images with the weights file. 
 ```
 $ evaluation_detection.py [-h] [--image_folder IMAGE_FOLDER] 
-								[--output_image_folder OUTPUT_IMAGE_FOLDER]
-								[--model_def MODEL_DEF] [--weights_path WEIGHTS_PATH]
-								[--class_path CLASS_PATH] [--conf_thres CONF_THRES]
-								[--nms_thres NMS_THRES]
-								[--evaluation_interval EVALUATION_INTERVAL]
-								[--batch_size BATCH_SIZE][--n_cpu N_CPU]
-								[--img_size IMG_SIZE]
+						[--output_image_folder OUTPUT_IMAGE_FOLDER]
+						[--model_def MODEL_DEF] [--weights_path WEIGHTS_PATH]
+						[--class_path CLASS_PATH] [--conf_thres CONF_THRES]
+						[--nms_thres NMS_THRES]
+						[--evaluation_interval EVALUATION_INTERVAL]
+						[--batch_size BATCH_SIZE][--n_cpu N_CPU]
+						[--img_size IMG_SIZE]
+```
 ```
 An example in the terminal: \
 python3 evaluation_detection.py \
@@ -75,29 +91,36 @@ python3 evaluation_detection.py \
 --weights_path checkpoints/aug23_img576_test1/weights_173.pth \
 --nms_thres 0.05 --conf_thres 0.5 \
 --img_size 640 --batch_size 1 
-
+```
 ##### evaluation_add_groud_truth.py
-Add groud truth on the images. An example in the terminal: \
+Add groud truth on the images. 
+```
+$ evaluation_add_groud_truth.py [-h] 
+						[--image_folder IMAGE_FOLDER]
+						[--label_folder LABEL_FOLDER] 
+```
+'''
+An example at the terminal: 
 python3 evaluation_add_groud_truth.py \
 --image_folder output/delete_later \
 --label_folder data/custom/GAPs384/labels
-
+'''
 
 #### Evaluation
 ##### evaluation_dataset.py
-calculate precision, recall, AP, f1, ap_class with weights file on specific dataset
-Notes: for gray-scale image and the model trained for 1 channel image,
-Modify the function: class ListDataset(Dataset) in utils/dataset.py
+calculate precision, recall, AP, f1, ap_class with weights file on specific dataset. \
+Notes: For gray-scale image and the model trained for 1 channel image, modify the function: class ListDataset(Dataset) in utils/dataset.py
 def __getitem__(self, index): img = transforms.ToTensor()(Image.open(img_path).convert('L'))
 
-an example at the terminal
+'''
+An example at the terminal
 python3 evaluation_dataset.py \
 --model_def config/GAPs384/yolov3_gaps_1class.cfg \
 --weights_path checkpoints/aug23_img576_test1/weights_173.pth \
 --nms_thres 0.05 --conf_thres 0.5 \
 --img_size 640 --batch_size 2 \
 --valid_path data/custom/GAPs384/file_list/predict_new.txt
-
+'''
 
 
 
