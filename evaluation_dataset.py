@@ -127,6 +127,6 @@ if __name__ == "__main__":
     print(f"\n---- mAP {evaluation_metrics}")
     result=[loss.item(), precision.mean(),recall.mean(),AP.mean(),f1.mean()]
     APs = np.round(np.array(APs),4)
-    print(ap/10)
+#    print(ap/10)
          
  

@@ -41,7 +41,7 @@ python3 train.py --epochs 300 --data_config config/custom.data --img_size 416 \
 pid = os.getpid()
 import subprocess
 subprocess.Popen("renice -n 10 -p {}".format(pid),shell=True)
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

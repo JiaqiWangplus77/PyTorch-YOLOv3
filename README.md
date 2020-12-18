@@ -1,35 +1,16 @@
 # PyTorch-YOLOv3
-A minimal PyTorch implementation of YOLOv3, with support for training, inference and evaluation.
+A minimal PyTorch implementation of YOLOv3, with support for training and evaluation.
 
 ## Installation
 ##### Clone and install requirements
-    $ git clone https://github.com/eriklindernoren/PyTorch-YOLOv3
+    $ git clone https://github.com/JiaqiWangplus77/PyTorch-YOLOv3.git
     $ cd PyTorch-YOLOv3/
     $ sudo pip3 install -r requirements.txt
 
 
 
 ## Train
-```
-$ train.py [-h] [--epochs EPOCHS] [--batch_size BATCH_SIZE]
-                [--gradient_accumulations GRADIENT_ACCUMULATIONS]
-                [--model_def MODEL_DEF] [--data_config DATA_CONFIG]
-                [--pretrained_weights PRETRAINED_WEIGHTS] [--n_cpu N_CPU]
-                [--img_size IMG_SIZE]
-                [--checkpoint_interval CHECKPOINT_INTERVAL]
-                [--evaluation_interval EVALUATION_INTERVAL]
-                [--compute_map COMPUTE_MAP]
-                [--multiscale_training MULTISCALE_TRAINING]
-```
 
-
-#### Custom model
-Run the commands below to create a custom model definition, replacing `<num-classes>` with the number of classes in your dataset.
-
-```
-$ cd config/                                # Navigate to config dir
-$ bash create_custom_model.sh <num-classes> # Will create custom model 'yolov3-custom.cfg'
-```
 
 #### Classes
 Add class names to `data/custom/classes.names`. This file should have one row per class name.
@@ -44,33 +25,66 @@ Move your annotations to `data/custom/labels/`. The dataloader expects that the 
 In `data/custom/train.txt` and `data/custom/valid.txt`, add paths to images that will be used as train and validation data respectively.
 
 #### Train
-To train on the custom dataset run:
+Training information will be saved in the weight folder at the beginning of the training. Training loss and validation loss will be saved in csv file when all the training is finished.
+```
+$ train.py [-h] [--epochs EPOCHS] [--batch_size BATCH_SIZE]
+                [--gradient_accumulations GRADIENT_ACCUMULATIONS]
+                [--model_def MODEL_DEF] [--data_config DATA_CONFIG]
+                [--pretrained_weights PRETRAINED_WEIGHTS] [--n_cpu N_CPU]
+                [--img_size IMG_SIZE]
+                [--checkpoint_interval CHECKPOINT_INTERVAL]
+                [--evaluation_interval EVALUATION_INTERVAL]
+                [--compute_map COMPUTE_MAP]
+                [--multiscale_training MULTISCALE_TRAINING]
+                [--starts_epochs STARTS_EPOCHS]
+                [--weights_folder WEIGHTS_FOLDER]
+```
 
 ```
-$ python3 train.py --model_def config/yolov3-custom.cfg --data_config config/custom.data
+an example at the terminal:
+python3 train.py --epochs 500 \
+--data_config config/GAPs384/with_aug123.data \
+--multiscale_training 0 \
+--img_size 640 \
+--batch_size 2 \
+--evaluation_interval 2 \
+--checkpoint_interval 2 \
+--model_def config/GAPs384/yolov3_gaps_1class.cfg \
+--weights_folder checkpoints/GAPs384/test_delete/ 
 ```
-
-Add `--pretrained_weights weights/darknet53.conv.74` to train using a backend pretrained on ImageNet.
 
 #### Detect
-evaluation_detection.py. 
-Ddetect the results with the weights file. An example in the terminal:
+##### evaluation_detection.py. 
+Ddetect the results with the weights file. 
+```
+$ evaluation_detection.py [-h] [--image_folder IMAGE_FOLDER] 
+								[--output_image_folder OUTPUT_IMAGE_FOLDER]
+								[--model_def MODEL_DEF] [--weights_path WEIGHTS_PATH]
+								[--class_path CLASS_PATH] [--conf_thres CONF_THRES]
+								[--nms_thres NMS_THRES]
+								[--evaluation_interval EVALUATION_INTERVAL]
+								[--batch_size BATCH_SIZE][--n_cpu N_CPU]
+								[--img_size IMG_SIZE]
+```
+An example in the terminal: \
 python3 evaluation_detection.py \
---model_def config/yolov3_gaps_1class.cfg \
+--model_def config/GAPs384/yolov3_gaps_1class.cfg \
 --image_folder data/samples/predict \
---output_image_folder output/aug23_img576_test1_weights_173  \
+--output_image_folder output/delete_later  \
 --class_path data/custom/GAPs384/classes.names \
 --weights_path checkpoints/aug23_img576_test1/weights_173.pth \
 --nms_thres 0.05 --conf_thres 0.5 \
---img_size 640 --batch_size 2 
+--img_size 640 --batch_size 1 
 
-evaluation_add_groud_truth.py
-Add groud truth on the images. An example in the terminal:
+##### evaluation_add_groud_truth.py
+Add groud truth on the images. An example in the terminal: \
 python3 evaluation_add_groud_truth.py \
---image_folder output/aug23_img576_test1_weights_173 \
+--image_folder output/delete_later \
 --label_folder data/custom/GAPs384/labels
 
-evaluation_dataset.py
+
+#### Evaluation
+##### evaluation_dataset.py
 calculate precision, recall, AP, f1, ap_class with weights file on specific dataset
 Notes: for gray-scale image and the model trained for 1 channel image,
 Modify the function: class ListDataset(Dataset) in utils/dataset.py
@@ -78,24 +92,14 @@ def __getitem__(self, index): img = transforms.ToTensor()(Image.open(img_path).c
 
 an example at the terminal
 python3 evaluation_dataset.py \
---model_def config/yolov3_gaps_1class.cfg \
+--model_def config/GAPs384/yolov3_gaps_1class.cfg \
 --weights_path checkpoints/aug23_img576_test1/weights_173.pth \
 --nms_thres 0.05 --conf_thres 0.5 \
 --img_size 640 --batch_size 2 \
---valid_path data/custom/GAPs384/list_for_shuffle/predict_new.txt
+--valid_path data/custom/GAPs384/file_list/predict_new.txt
 
-train.py 
-train the dataset
-an example at the terminal
-python3 train.py --epochs 500 \
---data_config config/GAPs384/with_aug123.data \
---multiscale_training 0 \
---img_size 640 \
---batch_size 4 \
---evaluation_interval 2 \
---checkpoint_interval 2 \
---model_def config/GAPs384/yolov3_gaps_1class.cfg \
---weights_folder checkpoints/GAPs384/test_delete/
+
+
 
 
 ## Credit

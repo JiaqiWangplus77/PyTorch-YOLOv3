@@ -49,7 +49,7 @@ python3 train.py --epochs 80 \
 pid = os.getpid()
 import subprocess
 subprocess.Popen("renice -n 10 -p {}".format(pid),shell=True)
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '2'
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

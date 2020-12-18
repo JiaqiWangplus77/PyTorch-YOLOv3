@@ -32,14 +32,14 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 detect the results with the weights file
 
 an example in the terminal:
-python3 detect.py \
---model_def config/yolov3_gaps_1class.cfg \
+python3 evaluation_detection.py \
+--model_def config/GAPs384/yolov3_gaps_1class.cfg \
 --image_folder data/samples/predict \
---output_image_folder output/aug23_img576_test1_weights_173  \
---class_path data/custom/classes.names \
+--output_image_folder output/delete_later  \
+--class_path data/custom/GAPs384/classes.names \
 --weights_path checkpoints/aug23_img576_test1/weights_173.pth \
 --nms_thres 0.05 --conf_thres 0.5 \
---img_size 640 --batch_size 2 
+--img_size 640 --batch_size 1 
 
 """
 if __name__ == "__main__":
