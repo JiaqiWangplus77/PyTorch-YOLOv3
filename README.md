@@ -60,7 +60,7 @@ python3 train.py --epochs 500 \
 --evaluation_interval 2 \
 --checkpoint_interval 2 \
 --model_def config/GAPs384/yolov3_gaps_1class.cfg \
---weights_folder checkpoints/GAPs384/test_delete/ 
+--weights_folder checkpoints/test_delete/ 
 ```
 
 We provide another python file (train_cross_valid.py) which allows to valid with two dataset at the same time while training. In this way, the generalization ability of the YOLOv3 across datasets could be checked.
@@ -119,9 +119,7 @@ python3 evaluation_add_groud_truth.py \
 
 #### Evaluation
 ##### evaluation_dataset.py
-calculate `precision, recall, AP, f1, ap_class` with weights file on specific dataset. \
-Notes: For gray-scale image and the model trained for 1 channel image, modify the function: class ListDataset(Dataset) in utils/dataset.py
-def __getitem__(self, index): img = transforms.ToTensor()(Image.open(img_path).`convert('L'))`
+calculate `precision, recall, AP, f1, ap_class` with weights file on specific dataset.  
 ```
 $ evaluation_dataset.py [-h][--batch_size BATCH_SIZE][--model_def MODEL_DEF] 
 						[--weights_path WEIGHTS_PATH][--n_cpu N_CPU]

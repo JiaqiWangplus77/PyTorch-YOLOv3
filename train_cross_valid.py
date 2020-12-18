@@ -29,21 +29,16 @@ import pandas as pd
 
 
 """
-an example for command in the terminal:
-python3 train.py --epochs 300 --data_config config/custom.data --img_size 416 \
---batch_size 8 \
---model_def config/yolov3_gaps_1class.cfg
---data_config
---pretrained_weights checkpoints/train_with_crop1/yolov3_one_channel_416_99.pth --starts_epochs 0
-
-
-multi_class:
-python3 train.py --epochs 80 \
---data_config config/custom_code_testing.data \
---img_size 416 \
+An example at the terminal:
+python3 train_cross_valid.py --epochs 500 \
+--data_config config/GAPs384/valid_CFD2.data \
+--multiscale_training 0 \
+--img_size 576 \
 --batch_size 4 \
---model_def config/yolov3_gaps_crop_3class.cfg \
---weights_folder checkpoints/test/    
+--evaluation_interval 2 \
+--checkpoint_interval 2 \
+--model_def config/GAPs384/yolov3_gaps_1class.cfg \
+--weights_folder checkpoints/test_cross_delete/
     
 """
 pid = os.getpid()
